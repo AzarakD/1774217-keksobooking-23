@@ -33,24 +33,10 @@ const getRandomArray = (array) => {
   return newArray;
 };
 
-const getPhotoURL = (chars) => {
-  let newArray = new Array(getRandomInteger(1, 10)).fill('');
-  newArray = newArray.map((value) => {
-    value += 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/';
-    for (let iter = 0; iter < 10; iter++) {
-      value += getRandomElement(chars);
-    }
-    value += '.jpg';
-    return value;
-  });
-  return newArray;
-};
-
 export {
   getRandomInteger,
   getRandomFloat,
   getRandomUniqElement,
   getRandomElement,
-  getRandomArray,
-  getPhotoURL
+  getRandomArray
 };
