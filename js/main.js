@@ -1,5 +1,6 @@
 import { generateOffer } from './generate-offer.js';
 import { generateCard } from './popup-card.js';
+import { activatePage } from './page-state.js';
 
 const OFFERS = 10;
 const generatedOffers = new Array(OFFERS).fill('').map(() => generateOffer());
@@ -13,3 +14,5 @@ for (let offer = 0; offer < OFFERS; offer++) {
 
 const mapCanvas = document.querySelector('#map-canvas');
 mapCanvas.appendChild(cardsFragments.firstChild);
+
+activatePage();
