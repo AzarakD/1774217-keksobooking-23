@@ -1,6 +1,10 @@
 const NUMS_FOR_IMAGE_URL = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
 
-const CHARS_FOR_PHOTO_URL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const PHOTO_URLS = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+];
 
 const TITLES = [
   'Петровский Арт Лофт',
@@ -47,7 +51,7 @@ const LONGITUDE = [139.7, 139.8];
 
 export {
   NUMS_FOR_IMAGE_URL,
-  CHARS_FOR_PHOTO_URL,
+  PHOTO_URLS,
   TITLES,
   TYPES,
   CHECKINS,

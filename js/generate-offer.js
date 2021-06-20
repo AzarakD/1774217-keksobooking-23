@@ -3,13 +3,12 @@ import {
   getRandomFloat,
   getRandomUniqElement,
   getRandomElement,
-  getRandomArray,
-  getPhotoURL
+  getRandomArray
 } from './utils.js';
 
 import {
   NUMS_FOR_IMAGE_URL,
-  CHARS_FOR_PHOTO_URL,
+  PHOTO_URLS,
   TITLES,
   TYPES,
   CHECKINS,
@@ -33,7 +32,9 @@ const generateOffer = () => {
     getRandomFloat(LONGITUDE[0], LONGITUDE[1], 5),
   ];
   return {
-    author: `img/avatars/user${getRandomUniqElement(NUMS_FOR_IMAGE_URL)}.png`,
+    author: {
+      avatar: `img/avatars/user${getRandomUniqElement(NUMS_FOR_IMAGE_URL)}.png`,
+    },
     offer: {
       title: getRandomUniqElement(TITLES),
       address: `${geoLocation[0]}.x, ${geoLocation[1]}.y`,
@@ -45,7 +46,7 @@ const generateOffer = () => {
       checkout: getRandomElement(CHECKOUTS),
       features: getRandomArray(FEATURES),
       description: getRandomUniqElement(DESCRIPTIONS),
-      photos: getPhotoURL(CHARS_FOR_PHOTO_URL),
+      photos: getRandomArray(PHOTO_URLS),
     },
     location: {
       lat: geoLocation[0],
