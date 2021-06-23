@@ -1,22 +1,5 @@
-import { generateOffer } from './generate-offer.js';
-import { generateCard } from './popup-card.js';
-import { activatePage } from './page-state.js';
-
-const OFFERS = 1;
-
-const placeOfferOnMap = () => {
-  const generatedOffers = new Array(OFFERS).fill('').map(() => generateOffer());
-  const generatedCards = new Array(OFFERS).fill('');
-  const cardsFragments = document.createDocumentFragment();
-
-  for (let offer = 0; offer < OFFERS; offer++) {
-    generatedCards[offer] = generateCard(generatedOffers[offer]);
-    cardsFragments.appendChild(generatedCards[offer]);
-  }
-
-  const mapCanvas = document.querySelector('#map-canvas');
-  mapCanvas.appendChild(cardsFragments);
-};
+import { placeOfferOnMap } from './popup-card.js';
+import { setValidity } from './setup-form.js';
 
 placeOfferOnMap();
-activatePage();
+setValidity();
