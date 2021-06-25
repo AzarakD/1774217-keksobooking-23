@@ -1,9 +1,16 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const MIN_PRICE = 0;
 const MAX_PRICE = 1000000;
 const MAX_ROOMS = '100';
 const MIN_CAPACITY = '0';
+
+const MIN_PRICES = {
+  bungalow: '0',
+  flat: '1000',
+  hotel: '3000',
+  house: '5000',
+  palace: '10000',
+};
 
 const adForm = document.querySelector('.ad-form');
 const adFieldsets = adForm.querySelectorAll('fieldset');
@@ -11,7 +18,9 @@ const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const roomsSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
-
+const housingTypeSelect = adForm.querySelector('#type');
+const timeInSelect = adForm.querySelector('#timein');
+const timeOutSelect = adForm.querySelector('#timeout');
 const mapForm = document.querySelector('.map__filters');
 const mapFilters = mapForm.querySelectorAll('select, fieldset');
 
@@ -59,9 +68,10 @@ const setTitleValidity = () => {
 const setPriceValidity = () => {
   priceInput.addEventListener('input', () => {
     const priceValue = Number(priceInput.value);
+    const minPrice = Number(priceInput.min);
 
-    if (priceValue < MIN_PRICE) {
-      priceInput.setCustomValidity(`Минимальное значение ${ MIN_PRICE }`);
+    if (priceValue < minPrice) {
+      priceInput.setCustomValidity(`Минимальное значение ${ minPrice }`);
     } else if (priceValue > MAX_PRICE) {
       priceInput.setCustomValidity(`Максимальное значение ${ MAX_PRICE }`);
     } else {
@@ -94,10 +104,29 @@ const setRoomsCapValidity = () => {
   capacitySelect.addEventListener('change', setCustomReport);
 };
 
+const setHousingType = () => {
+  housingTypeSelect.addEventListener('change', (evt) => {
+    priceInput.min = MIN_PRICES[evt.target.value];
+    priceInput.placeholder = MIN_PRICES[evt.target.value];
+  });
+};
+
+const setArrivalLeavingTime = () => {
+  timeOutSelect.addEventListener('change', () => {
+    timeInSelect.selectedIndex = timeOutSelect.selectedIndex;
+  });
+
+  timeInSelect.addEventListener('change', () => {
+    timeOutSelect.selectedIndex = timeInSelect.selectedIndex;
+  });
+};
+
 const setValidity = () => {
   setTitleValidity();
   setPriceValidity();
   setRoomsCapValidity();
+  setHousingType();
+  setArrivalLeavingTime();
 };
 
 export {
