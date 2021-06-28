@@ -1,5 +1,5 @@
-import { placeOfferOnMap } from './popup-card.js';
 import { setValidity } from './setup-form.js';
+import { setMap } from './map.js';
 
-placeOfferOnMap();
 setValidity();
+setMap();

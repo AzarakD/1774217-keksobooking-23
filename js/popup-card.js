@@ -1,6 +1,6 @@
-import { generateOffer } from './generate-offer.js';
+// import { generateOffer } from './generate-offer.js';
 
-const OFFERS = 1;
+// const OFFERS = 1;
 
 const renderCard = (offerData) => {
   const template = document.querySelector('#card').content.querySelector('.popup');
@@ -71,18 +71,18 @@ const renderCard = (offerData) => {
   return card;
 };
 
-const placeOfferOnMap = () => {
-  const generatedOffers = new Array(OFFERS).fill('').map(generateOffer);
-  const cards = new Array(OFFERS).fill('');
-  const cardsFragment = document.createDocumentFragment();
+// const placeOfferOnMap = () => {
+//   const generatedOffers = new Array(OFFERS).fill('').map(generateOffer);
+//   const cards = new Array(OFFERS).fill('');
+//   const cardsFragment = document.createDocumentFragment();
 
-  for (let offer = 0; offer < OFFERS; offer++) {
-    cards[offer] = renderCard(generatedOffers[offer]);
-    cardsFragment.appendChild(cards[offer]);
-  }
+//   for (let offer = 0; offer < OFFERS; offer++) {
+//     cards[offer] = renderCard(generatedOffers[offer]);
+//     cardsFragment.appendChild(cards[offer]);
+//   }
 
-  const mapCanvas = document.querySelector('#map-canvas');
-  mapCanvas.appendChild(cardsFragment);
-};
+//   const mapCanvas = document.querySelector('#map-canvas');
+//   mapCanvas.appendChild(cardsFragment);
+// };
 
-export { placeOfferOnMap };
+export { renderCard };
