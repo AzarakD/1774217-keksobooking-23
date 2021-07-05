@@ -1,3 +1,7 @@
+import { sendData } from './api.js';
+import { centerMainMarker } from './map.js';
+import { showSuccessMessage, showErrorMessage } from './modals.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -21,6 +25,9 @@ const capacitySelect = adForm.querySelector('#capacity');
 const housingTypeSelect = adForm.querySelector('#type');
 const timeInSelect = adForm.querySelector('#timein');
 const timeOutSelect = adForm.querySelector('#timeout');
+const descriptionArea = adForm.querySelector('#description');
+const features = adForm.querySelectorAll('.features__checkbox');
+const resetButton = adForm.querySelector('.ad-form__reset');
 const mapForm = document.querySelector('.map__filters');
 const mapFilters = mapForm.querySelectorAll('select, fieldset');
 
@@ -121,6 +128,42 @@ const setArrivalLeavingTime = () => {
   });
 };
 
+const setDefault = () => {
+  centerMainMarker();
+
+  titleInput.value = '';
+  priceInput.value = '';
+  housingTypeSelect.selectedIndex = 1;
+  priceInput.min = '1000';
+  priceInput.placeholder = '1000';
+  roomsSelect.selectedIndex = 0;
+  capacitySelect.selectedIndex = 2;
+  descriptionArea.value = '';
+  timeInSelect.selectedIndex = 0;
+  timeOutSelect.selectedIndex = 0;
+
+  features.forEach((element) => {
+    element.checked = false;
+  });
+};
+
+const setFormSending = () => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+
+    sendData(() => {
+      setDefault();
+      showSuccessMessage();
+    }, showErrorMessage, formData);
+  });
+
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    setDefault();
+  });
+};
+
 const setValidity = () => {
   setTitleValidity();
   setPriceValidity();
@@ -132,5 +175,6 @@ const setValidity = () => {
 export {
   deactivateForms,
   activateForms,
-  setValidity
+  setValidity,
+  setFormSending
 };
