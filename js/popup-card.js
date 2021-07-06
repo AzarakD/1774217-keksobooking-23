@@ -1,7 +1,3 @@
-// import { generateOffer } from './generate-offer.js';
-
-// const OFFERS = 1;
-
 const renderCard = (offerData) => {
   const template = document.querySelector('#card').content.querySelector('.popup');
   const card = template.cloneNode(true);
@@ -17,9 +13,8 @@ const renderCard = (offerData) => {
   const popupPhotos = card.querySelector('.popup__photos');
   const popupAvatar = card.querySelector('.popup__avatar');
 
-  const imgTemplate = popupPhotos.children[0].cloneNode(true);
-  const photoesFragment = document.createDocumentFragment();
-  const featuresFragment = document.createDocumentFragment();
+  const imgTemplate = popupPhotos.cloneNode(false);
+  const featuresTemplate = popupFeatures.cloneNode(false);
 
   popupTitle.textContent = offerData.offer.title;
   popupAddress.textContent = offerData.offer.address;
@@ -41,48 +36,36 @@ const renderCard = (offerData) => {
 
   popupType.textContent = getLivingType(offerData.offer.type);
 
-  offerData.offer.features.forEach((feature) => {
-    const featureElement = document.createElement('li');
-    featureElement.classList.add('popup__feature', `popup__feature--${feature}`);
-    featuresFragment.appendChild(featureElement);
-  });
+  if (offerData.offer.features) {
+    offerData.offer.features.forEach((feature) => {
+      const featureElement = document.createElement('li');
+      featureElement.classList.add('popup__feature', `popup__feature--${feature}`);
+      featuresTemplate.appendChild(featureElement);
+    });
+  }
+  popupFeatures.replaceWith(featuresTemplate);
 
-  popupFeatures.replaceWith(featuresFragment);
+  if (offerData.offer.photos) {
+    offerData.offer.photos.forEach((photo) => {
+      const photoElement = popupPhotos.children[0].cloneNode(false);
+      photoElement.src = photo;
+      imgTemplate.appendChild(photoElement);
+    });
+  }
+  popupPhotos.replaceWith(imgTemplate);
 
-  offerData.offer.photos.forEach((photo) => {
-    const photoElement = imgTemplate.cloneNode(true);
-    photoElement.src = photo;
-    photoesFragment.appendChild(photoElement);
-  });
-
-  popupPhotos.replaceWith(photoesFragment);
-
-  if (offerData.offer.title.length === 0) {popupTitle.classList.add('hidden');}
-  if (offerData.offer.address.length === 0) {popupAddress.classList.add('hidden');}
-  if (offerData.offer.price.length === 0) {popupPrice.classList.add('hidden');}
-  if (offerData.offer.type.length === 0) {popupType.classList.add('hidden');}
-  if (offerData.offer.rooms.length === 0 || offerData.offer.guests.length === 0) {popupCapacity.classList.add('hidden');}
-  if (offerData.offer.checkin.length === 0 || offerData.offer.checkout.length === 0) {popupTime.classList.add('hidden');}
-  if (offerData.offer.features.length === 0) {popupFeatures.classList.add('hidden');}
-  if (offerData.offer.description.length === 0) {popupDescription.classList.add('hidden');}
-  if (offerData.offer.photos.length === 0) {popupPhotos.classList.add('hidden');}
-  if (offerData.author.avatar.length === 0) {popupAvatar.classList.add('hidden');}
+  if (!offerData.offer.title) {popupTitle.classList.add('hidden');}
+  if (!offerData.offer.address) {popupAddress.classList.add('hidden');}
+  if (!offerData.offer.price) {popupPrice.classList.add('hidden');}
+  if (!offerData.offer.type) {popupType.classList.add('hidden');}
+  if (!offerData.offer.rooms || !offerData.offer.guests) {popupCapacity.classList.add('hidden');}
+  if (!offerData.offer.checkin || !offerData.offer.checkout) {popupTime.classList.add('hidden');}
+  if (!offerData.offer.features) {popupFeatures.classList.add('hidden');}
+  if (!offerData.offer.description) {popupDescription.classList.add('hidden');}
+  if (!offerData.offer.photos) {popupPhotos.classList.add('hidden');}
+  if (!offerData.author.avatar) {popupAvatar.classList.add('hidden');}
 
   return card;
 };
-
-// const placeOfferOnMap = () => {
-//   const generatedOffers = new Array(OFFERS).fill('').map(generateOffer);
-//   const cards = new Array(OFFERS).fill('');
-//   const cardsFragment = document.createDocumentFragment();
-
-//   for (let offer = 0; offer < OFFERS; offer++) {
-//     cards[offer] = renderCard(generatedOffers[offer]);
-//     cardsFragment.appendChild(cards[offer]);
-//   }
-
-//   const mapCanvas = document.querySelector('#map-canvas');
-//   mapCanvas.appendChild(cardsFragment);
-// };
 
 export { renderCard };

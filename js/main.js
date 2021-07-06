@@ -1,5 +1,8 @@
-import { setValidity } from './setup-form.js';
-import { setMap } from './map.js';
+import './map.js';
+import { setValidity, setFormSending } from './setup-form.js';
 
+// Настроить валидацию формы
 setValidity();
-setMap();
+
+// Настроить отправку формы
+setFormSending();
