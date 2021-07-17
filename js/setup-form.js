@@ -1,6 +1,7 @@
 import { sendData } from './api.js';
-import { centerMainMarker } from './map.js';
+import { centerMainMarker, setMarkers } from './map.js';
 import { showSuccessMessage, showErrorMessage } from './modals.js';
+import { resetFilters } from './filter.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -25,8 +26,6 @@ const capacitySelect = adForm.querySelector('#capacity');
 const housingTypeSelect = adForm.querySelector('#type');
 const timeInSelect = adForm.querySelector('#timein');
 const timeOutSelect = adForm.querySelector('#timeout');
-const descriptionArea = adForm.querySelector('#description');
-const features = adForm.querySelectorAll('.features__checkbox');
 const resetButton = adForm.querySelector('.ad-form__reset');
 const mapForm = document.querySelector('.map__filters');
 const mapFilters = mapForm.querySelectorAll('select, fieldset');
@@ -44,13 +43,16 @@ const deactivateForms = () => {
   });
 };
 
-const activateForms = () => {
+const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  mapForm.classList.remove('map__filters--disabled');
 
   adFieldsets.forEach((element) => {
     element.removeAttribute('disabled');
   });
+};
+
+const activateFilterForm = () => {
+  mapForm.classList.remove('map__filters--disabled');
 
   mapFilters.forEach((element) => {
     element.removeAttribute('disabled');
@@ -129,22 +131,9 @@ const setArrivalLeavingTime = () => {
 };
 
 const setDefault = () => {
+  adForm.reset();
+  resetFilters();
   centerMainMarker();
-
-  titleInput.value = '';
-  priceInput.value = '';
-  housingTypeSelect.selectedIndex = 1;
-  priceInput.min = '1000';
-  priceInput.placeholder = '1000';
-  roomsSelect.selectedIndex = 0;
-  capacitySelect.selectedIndex = 2;
-  descriptionArea.value = '';
-  timeInSelect.selectedIndex = 0;
-  timeOutSelect.selectedIndex = 0;
-
-  features.forEach((element) => {
-    element.checked = false;
-  });
 };
 
 const setFormSending = () => {
@@ -157,10 +146,13 @@ const setFormSending = () => {
       showSuccessMessage();
     }, showErrorMessage, formData);
   });
+};
 
+const resetAllForms = (offersAmount) => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     setDefault();
+    setMarkers(offersAmount);
   });
 };
 
@@ -174,7 +166,9 @@ const setValidity = () => {
 
 export {
   deactivateForms,
-  activateForms,
+  activateAdForm,
+  activateFilterForm,
   setValidity,
-  setFormSending
+  setFormSending,
+  resetAllForms
 };
