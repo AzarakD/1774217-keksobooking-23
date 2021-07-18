@@ -1,5 +1,6 @@
+const template = document.querySelector('#card').content.querySelector('.popup');
+
 const renderCard = (offerData) => {
-  const template = document.querySelector('#card').content.querySelector('.popup');
   const card = template.cloneNode(true);
 
   const popupTitle = card.querySelector('.popup__title');
