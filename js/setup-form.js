@@ -8,6 +8,8 @@ const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
 const MAX_ROOMS = '100';
 const MIN_CAPACITY = '0';
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const DEFAULT_PREVIEW = 'img/muffin-grey.svg';
 
 const MIN_PRICES = {
   bungalow: '0',
@@ -29,6 +31,49 @@ const timeOutSelect = adForm.querySelector('#timeout');
 const resetButton = adForm.querySelector('.ad-form__reset');
 const mapForm = document.querySelector('.map__filters');
 const mapFilters = mapForm.querySelectorAll('select, fieldset');
+const avatarInput = adForm.querySelector('#avatar');
+const avatarPreview = adForm.querySelector('ad-form-header__preview, img');
+const photoInput = adForm.querySelector('#images');
+const photoDiv = adForm.querySelector('.ad-form__photo');
+
+photoDiv.insertAdjacentHTML('afterbegin', '<img src="" alt="Фото жилья" width="70" height="70">');
+const photoPreview = photoDiv.querySelector('img');
+photoPreview.classList.add('hidden');
+
+avatarInput.addEventListener('change', () => {
+  const file = avatarInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((element) => fileName.endsWith(element));
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      avatarPreview.src = reader.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
+});
+
+photoInput.addEventListener('change', () => {
+  const file = photoInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((element) => fileName.endsWith(element));
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      photoPreview.src = reader.result;
+      photoPreview.classList.remove('hidden');
+    });
+
+    reader.readAsDataURL(file);
+  }
+});
 
 const deactivateForms = () => {
   adForm.classList.add('ad-form--disabled');
@@ -134,6 +179,9 @@ const setDefault = () => {
   adForm.reset();
   resetFilters();
   centerMainMarker();
+  avatarPreview.src = DEFAULT_PREVIEW;
+  photoPreview.src = '';
+  photoPreview.classList.add('hidden');
 };
 
 const setFormSending = () => {
