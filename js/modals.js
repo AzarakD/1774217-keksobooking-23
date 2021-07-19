@@ -4,10 +4,16 @@ const successMessage = successMessageTemplate.cloneNode(true);
 const errorMessage = errorMessageTemplate.cloneNode(true);
 
 const onSuccessAction = (evt) => {
+  const closeSuccessMessage = () => {
+    successMessage.remove();
+    document.removeEventListener('keydown', onSuccessAction);
+    successMessage.removeEventListener('click', onSuccessAction);
+  };
+
   if (evt.key === 'Escape' || evt.key === 'Esc') {
-    successMessage.remove();
+    closeSuccessMessage();
   } else if (evt.currentTarget === successMessage) {
-    successMessage.remove();
+    closeSuccessMessage();
   }
 };
 
@@ -19,10 +25,16 @@ const showSuccessMessage = () => {
 };
 
 const onErrorAction = (evt) => {
+  const closeErrorMessage = () => {
+    errorMessage.remove();
+    document.removeEventListener('keydown', onErrorAction);
+    errorMessage.removeEventListener('click', onErrorAction);
+  };
+
   if (evt.key === 'Escape' || evt.key === 'Esc') {
-    errorMessage.remove();
+    closeErrorMessage();
   } else if (evt.currentTarget === errorMessage) {
-    errorMessage.remove();
+    closeErrorMessage();
   }
 };
 

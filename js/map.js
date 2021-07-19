@@ -81,7 +81,7 @@ const centerMainMarker = () => {
   setAddress(mainMarker);
 };
 
-const loadMap = () => {
+const loadMap = (markerAmount) => {
   map.on('load', activateAdForm).setView({
     lat: CITY_CENTER.lat,
     lng: CITY_CENTER.lng,
@@ -94,6 +94,7 @@ const loadMap = () => {
     },
   ).addTo(map);
 
+  setMarkers(markerAmount);
   setAddress(mainMarker);
 };
 
