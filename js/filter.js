@@ -1,5 +1,5 @@
 import { setMarkers, removeMarkers } from './map.js';
-import { debounce } from './utils/debounce.js';
+import { debounce } from './utils.js';
 
 const mapFilters = document.querySelector('.map__filters');
 

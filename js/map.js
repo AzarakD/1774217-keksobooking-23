@@ -3,7 +3,10 @@ import { renderCard } from './popup-card.js';
 import { getData } from './api.js';
 import { filterOffers } from './filter.js';
 
-const CITY_CENTER = {lat: 35.652832, lng: 139.839478};
+const CITY_CENTER = {
+  lat: 35.652832,
+  lng: 139.839478,
+};
 const MAP_ZOOM = 10;
 
 deactivateForms();

@@ -5,7 +5,7 @@ import { setFilters } from './filter.js';
 const OFFER_AMOUNT = 10;
 const TIMEOUT_DELAY = 500;
 
-// Загрузка карты и меток
+// Загрузка карты с метками
 loadMap(OFFER_AMOUNT);
 
 // Настройка валидации формы
