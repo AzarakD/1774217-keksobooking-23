@@ -7,6 +7,20 @@ const CITY_CENTER = {
   lat: 35.652832,
   lng: 139.839478,
 };
+
+const MAIN_ICON_PARAMS = {
+  url: 'img/main-pin.svg',
+  size: [52, 52],
+  anchor: [26, 52],
+};
+
+const COMMON_ICON_PARAMS = {
+  url: 'img/pin.svg',
+  size: [40, 40],
+  anchor: [20, 40],
+};
+
+const ROUNDING = 5;
 const MAP_ZOOM = 10;
 
 deactivateForms();
@@ -14,22 +28,22 @@ deactivateForms();
 const setAddress = (element) => {
   const addressInput = document.querySelector('#address');
   const rowCoordinates = element.getLatLng();
-  const lat = rowCoordinates.lat.toFixed(5);
-  const lng = rowCoordinates.lng.toFixed(5);
+  const lat = rowCoordinates.lat.toFixed(ROUNDING);
+  const lng = rowCoordinates.lng.toFixed(ROUNDING);
 
   addressInput.value = `${lat}, ${lng}`;
 };
 
 const markerIcons = {
   main: L.icon({
-    iconUrl: 'img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
+    iconUrl: MAIN_ICON_PARAMS.url,
+    iconSize: MAIN_ICON_PARAMS.size,
+    iconAnchor: MAIN_ICON_PARAMS.anchor,
   }),
   common: L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconUrl: COMMON_ICON_PARAMS.url,
+    iconSize: COMMON_ICON_PARAMS.size,
+    iconAnchor: COMMON_ICON_PARAMS.anchor,
   }),
 };
 
@@ -85,7 +99,13 @@ const centerMainMarker = () => {
 };
 
 const loadMap = (markerAmount) => {
-  map.on('load', activateAdForm).setView({
+  const onMapLoaded = () => {
+    activateAdForm();
+    setMarkers(markerAmount);
+    setAddress(mainMarker);
+  };
+
+  map.on('load', onMapLoaded).setView({
     lat: CITY_CENTER.lat,
     lng: CITY_CENTER.lng,
   }, MAP_ZOOM);
@@ -96,9 +116,6 @@ const loadMap = (markerAmount) => {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
-
-  setMarkers(markerAmount);
-  setAddress(mainMarker);
 };
 
 export {

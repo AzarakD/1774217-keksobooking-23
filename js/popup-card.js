@@ -19,7 +19,7 @@ const renderCard = (offerData) => {
 
   popupTitle.textContent = offerData.offer.title;
   popupAddress.textContent = offerData.offer.address;
-  popupPrice.innerHTML = `${offerData.offer.price} <span>₽/ночь</span>`;
+  popupPrice.textContent = `${offerData.offer.price} ₽/ночь`;
   popupCapacity.textContent = `${offerData.offer.rooms} комнаты для ${offerData.offer.guests} гостей`;
   popupTime.textContent = `Заезд после ${offerData.offer.checkin}, выезд до ${offerData.offer.checkout}`;
   popupDescription.textContent = offerData.offer.description;
@@ -43,8 +43,8 @@ const renderCard = (offerData) => {
       featureElement.classList.add('popup__feature', `popup__feature--${feature}`);
       featuresTemplate.appendChild(featureElement);
     });
+    popupFeatures.replaceWith(featuresTemplate);
   }
-  popupFeatures.replaceWith(featuresTemplate);
 
   if (offerData.offer.photos) {
     offerData.offer.photos.forEach((photo) => {
@@ -52,8 +52,8 @@ const renderCard = (offerData) => {
       photoElement.src = photo;
       imgTemplate.appendChild(photoElement);
     });
+    popupPhotos.replaceWith(imgTemplate);
   }
-  popupPhotos.replaceWith(imgTemplate);
 
   if (!offerData.offer.title) {popupTitle.classList.add('hidden');}
   if (!offerData.offer.address) {popupAddress.classList.add('hidden');}

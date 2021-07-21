@@ -136,7 +136,7 @@ const setPriceValidity = () => {
 };
 
 const setRoomsCapValidity = () => {
-  const setCustomReport = () => {
+  const onSelectChange = () => {
     if (roomsSelect.value === MAX_ROOMS && capacitySelect.value !== MIN_CAPACITY) {
       roomsSelect.setCustomValidity('Это помещение не для гостей');
       capacitySelect.setCustomValidity('');
@@ -154,8 +154,8 @@ const setRoomsCapValidity = () => {
     capacitySelect.reportValidity();
   };
 
-  roomsSelect.addEventListener('change', setCustomReport);
-  capacitySelect.addEventListener('change', setCustomReport);
+  roomsSelect.addEventListener('change', onSelectChange);
+  capacitySelect.addEventListener('change', onSelectChange);
 };
 
 const setHousingType = () => {
