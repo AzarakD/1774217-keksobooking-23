@@ -4,17 +4,31 @@ import { setFilters } from './filter.js';
 
 const OFFER_AMOUNT = 10;
 
-// Загрузка карты с метками
-loadMap(OFFER_AMOUNT);
+if (loadMap(OFFER_AMOUNT)) {
+  // Настройка валидации формы
+  setValidity();
 
-// Настройка валидации формы
-setValidity();
+  // Настройка отправки формы
+  setFormSending();
 
-// Настройка отправки формы
-setFormSending();
+  // Настройка фильтррв
+  setFilters(OFFER_AMOUNT);
 
-// Настройка фильтррв
-setFilters(OFFER_AMOUNT);
+  // Кнопка сброса
+  resetAllForms(OFFER_AMOUNT);
+}
 
-// Кнопка сброса
-resetAllForms(OFFER_AMOUNT);
+// // Загрузка карты с метками
+// loadMap(OFFER_AMOUNT);
+
+// // Настройка валидации формы
+// setValidity();
+
+// // Настройка отправки формы
+// setFormSending();
+
+// // Настройка фильтррв
+// setFilters(OFFER_AMOUNT);
+
+// // Кнопка сброса
+// resetAllForms(OFFER_AMOUNT);

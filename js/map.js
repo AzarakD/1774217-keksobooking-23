@@ -99,10 +99,21 @@ const centerMainMarker = () => {
 };
 
 const loadMap = (markerAmount) => {
+  let mapLoaded = false;
+
   const onMapLoaded = () => {
     activateAdForm();
     setMarkers(markerAmount);
     setAddress(mainMarker);
+
+    L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      },
+    ).addTo(map);
+
+    mapLoaded = true;
   };
 
   map.on('load', onMapLoaded).setView({
@@ -110,12 +121,7 @@ const loadMap = (markerAmount) => {
     lng: CITY_CENTER.lng,
   }, MAP_ZOOM);
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
+  return mapLoaded;
 };
 
 export {
