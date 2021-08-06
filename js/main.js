@@ -17,18 +17,3 @@ if (loadMap(OFFER_AMOUNT)) {
   // Кнопка сброса
   resetAllForms(OFFER_AMOUNT);
 }
-
-// // Загрузка карты с метками
-// loadMap(OFFER_AMOUNT);
-
-// // Настройка валидации формы
-// setValidity();
-
-// // Настройка отправки формы
-// setFormSending();
-
-// // Настройка фильтррв
-// setFilters(OFFER_AMOUNT);
-
-// // Кнопка сброса
-// resetAllForms(OFFER_AMOUNT);
